@@ -1,11 +1,23 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define  DIGITS 2 //maximum number digits
+#define BUFSIZ (DIGITS) + 3 //accounts for sign character, newline, and 0 terminator.
+
+
+//https://dev-notes.eu/2019/05/Integer-Input-in-C/#:~:text=Use%20fgets()%20to%20read,an%20integer%20using%20strtol()%20.
 
 int main(int argc, char **argv){
 
 
-	int h = 0;
+	//int h = 0;
 
 	
+
+
+
+	/*
 	while( h <= 0 || h > 8  ){
 		printf("height:");
 		scanf("%d", &h);
@@ -26,6 +38,6 @@ int main(int argc, char **argv){
 		}
 		printf("\n");
 	}
-	return 0;
+	return 0;*/
 
 }
