@@ -34,6 +34,7 @@ person;
 
 person *create_family(int generations);
 char random_allele();
+void free_family(person *p);
 
 int main(int argc, char *argv[]){
     // Seed random number generator
@@ -45,14 +46,43 @@ int main(int argc, char *argv[]){
         printf("child: [%c%c] -->Parent1[%c%c] and Parent2[%c%c] ", traverse_family->alleles[0], traverse_family->alleles[1], 
         traverse_family->parents[0]->alleles[0], traverse_family->parents[0]->alleles[1], 
         traverse_family->parents[1]->alleles[0], traverse_family->parents[1]->alleles[1] );
-      
 
+        free_family(child);
+        
+        /*
+        printf("child: [%c%c] -->Parent1[%c%c] and Parent2[%c%c] ", traverse_family->alleles[0], traverse_family->alleles[1], 
+        traverse_family->parents[0]->alleles[0], traverse_family->parents[0]->alleles[1], 
+        traverse_family->parents[1]->alleles[0], traverse_family->parents[1]->alleles[1] );
+    */
    
 
     
   
 }
 
+// Free `p` and all ancestors of `p`.
+void free_family(person *p)
+{
+    // TODO: Handle base case
+    if( p->parents[0] == NULL && p->parents[1] == NULL ){
+        
+        free(p);
+        p = NULL;
+        return;
+    }
+
+    
+    // TODO: Free parents
+    free_family(p->parents[0]);
+    p->parents[0] = NULL;
+    free_family(p->parents[1]);
+    p->parents[1] = NULL;
+    
+    // TODO: Free child
+    free_family(p);
+    p = NULL;
+    
+}
 
 
 // Create a new individual with `generations` /// <---
