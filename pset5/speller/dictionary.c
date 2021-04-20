@@ -1,24 +1,40 @@
 // Implements a dictionary's functionality
-
+/*
 #include <stdbool.h>
 
-#include "dictionary.h"
+#include "dictionary.h"*/
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "/home/michaelangelovalente/Desktop/extra/cs50/pset5/speller/dictionary.h"
 
 // Represents a node in a hash table
 typedef struct node
 {
     char word[LENGTH + 1];
-    struct node *next;
+    struct node *next[10]; // Replace with N
 }
 node;
 
 // Number of buckets in hash table
 //const unsigned int N = 1;
-const unsigned int N = 100;
+const unsigned int N = 10;
 
 // Hash table
 node *table[N];
 
+//number of words inside the dictionary
+unsigned long number_of_words = 0;
+
+
+/*******************************************************************************************/
+/*Implement:
+load DONE
+hash DONE
+size 
+check
+unload
+*/
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
@@ -26,19 +42,7 @@ bool check(const char *word)
     return false;
 }
 
-// Hashes word to a number
-unsigned int hash(const char *word)
-{
-    // TODO
-    return 0;
-}
 
-// Loads dictionary into memory, returning true if successful, else false
-bool load(const char *dictionary)
-{
-    // TODO
-    return false;
-}
 
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
@@ -52,4 +56,90 @@ bool unload(void)
 {
     // TODO
     return false;
+}
+
+
+/********************************************************************************/
+// Loads dictionary into memory, returning true if successful, else false
+bool load(const char *dictionary)
+{
+    // TODO
+
+    FILE *ptrFile = fopen(dictionary, "r");
+    //opens the file and checks for success, otherwise return false.
+    
+    if (ptrFile == NULL){
+        return false;
+    }
+   
+    char words[LENGTH];
+    unsigned long hash_val = 0;
+
+    while( fscanf(ptrFile, "%s", words) != EOF ){
+        
+        //hash the word
+        unsigned char *s = words;
+        hash_val = hasher(s);
+        
+
+        //node *traverse_table;
+        //store a word inside a trie based on its hash value
+        int i = 0;
+        node *traverser;
+        for(int idx = -1;  i != -99 ; idx = hash_val / 10 ){
+            i++;//// Try to get rid of it later
+            
+            //first iteration: access the main table
+            if(idx == -1 ){//You can replace idx with i
+               
+                table[ hash_val % 10 ] = malloc( sizeof(node) );
+                if(table[ hash_val % 10 ] == NULL){
+                    return false;
+                }
+                traverser = table[hash_val % 10];
+
+            }else if( idx >= 10){
+                
+                traverser->next[ idx % 10] = malloc( sizeof(node) );
+                if(traverser->next[ idx % 10] == NULL){
+                    return false;
+                }
+                
+                traverser = traverser->next[ idx % 10];
+                hash_val = hash_val / 10;
+                
+            }else{
+                //final step:
+                //word insertion
+                //table[idx % 10]->word = words 
+                strcpy(traverser->word, s);
+                
+                for(int j = 0; j < 10; j++){
+                    traverser->next[j] = NULL;
+                }
+                i = -99;
+                number_of_words++;
+
+            }
+            
+
+        }
+        
+    }
+
+    return true;
+}
+
+
+
+//src: http://www.cse.yorku.ca/%7Eoz/hash.html
+//hashes a word using the djb2 algorithm;
+unsigned long hasher(const char *str){
+    unsigned long  hash = 5381;
+    int c;
+
+    while(c = *str++){
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c*/
+    }
+    return hash;
 }
