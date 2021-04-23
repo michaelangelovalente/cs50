@@ -35,13 +35,6 @@ size
 check
 unload
 */
-// Returns true if word is in dictionary, else false
-bool check(const char *word)
-{
-    // TODO
-    return false;
-}
-
 
 
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
@@ -60,6 +53,46 @@ bool unload(void)
 
 
 /********************************************************************************/
+
+// Returns true if word is in dictionary, else false
+bool check(const char *word)
+{
+    unsigned long hash = hasher(word);
+    node *traverse;
+
+    //No words in dictionary --> word is not in dictionary    
+    if(number_of_words == 0){
+        return false;
+    }
+
+    for( int i = 1; hash  > 10;){
+        if( i == 1){
+            //table[idx] is empty: word is not present in dictionary
+            if(table[hash % 10] == NULL){
+                return false;   
+            }
+            traverse = table[hash % 10];
+            i++;
+        }else{
+            //hash is incorrect --> word is not in dictionary
+            if(traverse->next[ hash % 10] == NULL){
+                return false;
+            }
+            traverse = traverse->next[ hash % 10];
+        }
+        hash = hash/10;
+        
+    }
+
+    //last part of hash is incorrect --> word is not in dictionary
+    if(traverse->next[hash] == NULL){
+        return false;
+    }
+
+    //trie using hash value leads to a word --> word is in dictionary.
+    return true;
+}
+
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
@@ -86,8 +119,9 @@ bool load(const char *dictionary)
         //store a word inside a trie based on its hash value
         int i = 0;
         node *traverser;
+
         for(int idx = -1;  i != -99 ; idx = hash_val / 10 ){
-            i++;//// Try to get rid of it later
+           
             
             //first iteration: access the main table
             if(idx == -1 ){//You can replace idx with i
@@ -96,10 +130,10 @@ bool load(const char *dictionary)
                 if(table[ hash_val % 10 ] == NULL){
                     return false;
                 }
-                traverser = table[hash_val % 10];
+                traverser = table[ hash_val % 10 ];
+                i++;//// Try to get rid of it later
 
             }else if( idx >= 10){
-                
                 traverser->next[ idx % 10] = malloc( sizeof(node) );
                 if(traverser->next[ idx % 10] == NULL){
                     return false;
@@ -107,11 +141,14 @@ bool load(const char *dictionary)
                 
                 traverser = traverser->next[ idx % 10];
                 hash_val = hash_val / 10;
-                
+                i++;//// Try to get rid of it later   
             }else{
                 //final step:
                 //word insertion
                 //table[idx % 10]->word = words 
+                traverser->next[ idx ] = malloc( sizeof(node) );
+                traverser = traverser->next[ idx ];
+                
                 strcpy(traverser->word, s);
                 
                 for(int j = 0; j < 10; j++){
@@ -121,7 +158,7 @@ bool load(const char *dictionary)
                 number_of_words++;
 
             }
-            
+                     
 
         }
         
@@ -138,7 +175,7 @@ unsigned long hasher(const char *str){
     unsigned long  hash = 5381;
     int c;
 
-    while(c = *str++){
+    while(c = tolower(*str++)){
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c*/
     }
     return hash;
