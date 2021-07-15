@@ -1,0 +1,14 @@
+sort1 uses: Bubble sort
+
+How do you know?: This was the slowest of the sorting algorithms, and there was a big difference between Big-O and Omega runtime.
+
+sort2 uses: Merge Sort
+
+How do you know?: Only two of the Sorting algorithms (Merge Sort and Selection sort) have Big-O and Omega about the same run time value,
+and between the two it had the best time, for both reversed data(worst case) and sorted data(best case).
+
+
+sort3 uses: Selection Sort
+
+How do you know?: Only two of the Sorting algorithms (Merge Sort and Selection sort) have Big-O and Omega about the same run time value, and between the two
+Selection Sort has the worst time for both reversed data(worst case) and sorted data(best case).
