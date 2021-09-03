@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+        <script>
+            
+            
+            // TODO: Add code to check answers to questions
+            
+
+
+
+            document.addEventListener('DOMContentLoaded', function(){
+              
+                
+              
+                document.getElementById('button1').onclick = function(){
+                    this.style.backgroundColor = "#FEAFAF";
+                    document.getElementById('Answer1').innerHTML = "Incorrect!";
+                   
+                }
+                document.getElementById('button2').onclick = function(){
+                    this.style.backgroundColor = "#FEAFAF";
+                    document.getElementById('Answer1').innerHTML = "Incorrect!";
+
+                }
+                document.getElementById('button3').onclick = function(){
+                    this.style.backgroundColor = "#FEAFAF";
+                    document.getElementById('Answer1').innerHTML = "Incorrect!";
+                }      
+                document.getElementById('button4').onclick = function(){
+                    this.style.backgroundColor = "#FEAFAF";
+                    document.getElementById('Answer1').innerHTML = "Incorrect!";
+
+                }  
+                document.getElementById('button5').onclick = function(){
+                    this.style.backgroundColor = "#AEDF93";
+                    document.getElementById('Answer1').innerHTML = "Correct!";
+                    document.getElementById('Answer1').style.color = '#AEDF93';
+
+                } 
+                
+                document.getElementById("myForm").onsubmit = function(){
+                    if(document.getElementById('textInput').value.toUpperCase() == "SWITZERLAND"){
+                        document.getElementById('Answer2').innerHTML = "Correct!";
+                        document.getElementById('Answer2').style.color = "#AEDF93";
+                        //alert(document.getElementById('textInput').value.toUpperCase());
+                        document.getElementById('textInput').style.backgroundColor = "#AEDF93";
+                    }else{
+                        document.getElementById('Answer2').innerHTML = "Incorrect";
+                        document.getElementById('textInput').style.backgroundColor = "#FEAFAF";
+                    }
+                   
+                    return false;
+                }
+
+                
+            });
+            
+                        
+        </script>
+
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>What is the approximate ratio of people to sheep in New Zealand?</h3>
+                <div class="incorrectAnswer" id="Answer1"></div>
+                <form>
+                    <button type="button" id="button1"> 6 people per 1 sheep</button>
+                    <button type="button" id="button2"> 3 people per 1 sheep</button>
+                    <button type="button" id="button3"> 1 people per 1 sheep</button>
+                    <button type="button" id="button4"> 1 people per 3 sheep</button>
+                    <button type="button" id="button5"> 1 people per 6 sheep</button>
+                </form>
+                
+                
+                
+                <!-- TODO: Add multiple choice question here -->
+
+            </div>
+
+            <div class="section">
+                <h2 id="question2">Part 2: Free Response</h2>
+                <hr>
+                <h3>In which country is it illegal to own one guinea pig, as a lone guinea pig might get lonely?</h3>
+                <div class="incorrectAnswer" id="Answer2"></div>
+                <form id="myForm">
+                    <input type="text" id="textInput" placeholder=" Answer here">
+                    <input type="submit"  value="Check Answer" >
+                </form>
+                
+               
+
+                <!-- TODO: Add free response question here -->
+
+            </div>
+
+        </div>
+    </body>
+    
+</html>

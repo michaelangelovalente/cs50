@@ -1,0 +1,57 @@
+header h1{
+    text-align: center;
+    background-color: #4E9CFF;
+    color: #FFFFFF;
+    border:none;
+    margin: 0;
+    padding: 60px 20px;
+    font-size: 40px;
+    font-family: sans-serif;
+}
+main{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+.button{
+    background-color: #CBE2FF;
+    border-radius: 4px;
+    margin: 3px;
+    border:none;
+    padding-left: 0.80em;
+    padding-right: 0.80em;
+
+    padding-top: 0.50em;
+    padding-bottom: 0.50em;
+    
+}
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 22px;
+    padding-top: 40px;
+    transform: scale(1,1.07);
+}
+h3{
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transform: scale(1,1.05);
+}
+
+
+#bottomSubmit{
+    margin-left:0.01px ;
+    padding-top: 0.70em;
+    padding-bottom: 0.70em;
+}
+#submitBar{
+    width: 17em;
+    height: 1.7em;
+}
+.solid{
+    border-top: 0.001px solid;
+   
+}
